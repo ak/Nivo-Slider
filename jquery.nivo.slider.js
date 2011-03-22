@@ -621,7 +621,18 @@
                 trace('Start Slider');
             }
         }
-        
+
+        this.switch_slide = function(x, custom_settings) {
+            var switch_settings = $.extend({}, $.fn.nivoSlider.defaults, custom_settings);
+            var vars = $(element).data('nivo:vars');
+            if (vars.running) return false;
+            slider.css('background', 'url("' + vars.currentImage.attr('src') + '") no-repeat');
+            clearInterval(timer);
+            timer = '';
+            vars.currentSlide = x - 1;
+            nivoRun(slider, kids, switch_settings, 'control');
+        }
+
         //Trigger the afterLoad callback
         settings.afterLoad.call(this);
 		
